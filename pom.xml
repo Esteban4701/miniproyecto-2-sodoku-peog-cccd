@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>sodoku</artifactId>
+    <artifactId>sudoku</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>sodoku</name>
 
@@ -24,11 +24,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>17.0.14</version>
-        </dependency>
-        <dependency>
-            <groupId>gov.nist.math</groupId>
-            <artifactId>jama</artifactId>
-            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

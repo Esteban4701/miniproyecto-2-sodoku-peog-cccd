@@ -1,11 +1,11 @@
-package org.example.sodoku.model;
+package com.example.sudoku.model;
 import java.util.*;
 
 /**
  * Model class for a 6x6 Sudoku game.
  * Handles matrix generation, validation, hollowing logic, and hint system.
  */
-public class SodokuModel {
+public class SudokuModel {
 
     /** The current game matrix (with holes). */
     private final ArrayList<ArrayList<Integer>> matrix;
@@ -22,14 +22,14 @@ public class SodokuModel {
     /**
      * Represents a position in the matrix.
      */
-    static class Pos {
-        int i, j;
+    public static class Pos {
+        public int i, j;
 
         /**
          * @param i row index
          * @param j column index
          */
-        Pos(int i, int j) {
+        public Pos(int i, int j) {
             this.i = i;
             this.j = j;
         }
@@ -38,7 +38,7 @@ public class SodokuModel {
     /**
      * Constructor. Initializes both matrices with zeros.
      */
-    public SodokuModel() {
+    public SudokuModel() {
         matrix = buildEmptyMatrix();
         solution = buildEmptyMatrix();
     }
@@ -50,12 +50,16 @@ public class SodokuModel {
      */
     private ArrayList<ArrayList<Integer>> buildEmptyMatrix() {
         ArrayList<ArrayList<Integer>> m = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        int i = 0;
+        while (i < 6) {
             ArrayList<Integer> row = new ArrayList<>();
-            for (int j = 0; j < 6; j++) {
+            int j = 0;
+            while (j < 6) {
                 row.add(0);
+                j++;
             }
             m.add(row);
+            i++;
         }
         return m;
     }
@@ -68,12 +72,16 @@ public class SodokuModel {
      */
     private ArrayList<ArrayList<Integer>> copyMatrix(ArrayList<ArrayList<Integer>> source) {
         ArrayList<ArrayList<Integer>> copy = new ArrayList<>();
-        for (int i = 0; i < source.size(); i++) {
+        int i = 0;
+        while (i < source.size()) {
             ArrayList<Integer> row = new ArrayList<>();
-            for (int j = 0; j < source.get(i).size(); j++) {
+            int j = 0;
+            while (j < source.get(i).size()) {
                 row.add(source.get(i).get(j));
+                j++;
             }
             copy.add(row);
+            i++;
         }
         return copy;
     }
@@ -117,12 +125,16 @@ public class SodokuModel {
      * @return true if the puzzle is solved, false otherwise
      */
     public boolean isSolved() {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
+        int i = 0;
+        while (i < 6) {
+            int j = 0;
+            while (j < 6) {
                 if (!matrix.get(i).get(j).equals(solution.get(i).get(j))) {
                     return false;
                 }
+                j++;
             }
+            i++;
         }
         return true;
     }
@@ -165,6 +177,7 @@ public class SodokuModel {
     /**
      * Validates whether a number can be placed at position (x, y).
      * Checks row, column, and 2x3 block constraints.
+     * Blocks are 2 rows x 3 columns.
      *
      * @param x row index
      * @param y column index
@@ -172,26 +185,37 @@ public class SodokuModel {
      * @return true if the number is valid at that position, false otherwise
      */
     public boolean validation(int x, int y, int n) {
-        for (int i = 0; i < 6; i++) {
+        // Check row
+        int i = 0;
+        while (i < 6) {
             if (matrix.get(x).get(i) == n) {
                 return false;
             }
+            i++;
         }
 
-        for (int i = 0; i < 6; i++) {
+        // Check column
+        i = 0;
+        while (i < 6) {
             if (matrix.get(i).get(y) == n) {
                 return false;
             }
+            i++;
         }
 
-        int x0 = (x / 3) * 3;
-        int y0 = (y / 2) * 2;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 2; j++) {
+        // Check 2x3 block (2 rows, 3 columns)
+        int x0 = (x / 2) * 2;
+        int y0 = (y / 3) * 3;
+        i = 0;
+        while (i < 2) {
+            int j = 0;
+            while (j < 3) {
                 if (matrix.get(x0 + i).get(y0 + j) == n) {
                     return false;
                 }
+                j++;
             }
+            i++;
         }
         return true;
     }
@@ -245,7 +269,7 @@ public class SodokuModel {
 
     /**
      * Returns the block index (0-5) for a given position.
-     * Blocks are ordered left to right, top to bottom.
+     * Blocks are 2 rows x 3 columns, ordered left to right, top to bottom.
      *
      * @param i row index
      * @param j column index
@@ -266,24 +290,36 @@ public class SodokuModel {
     public void hollower() {
         solution = copyMatrix(matrix);
 
+        // Build position lists grouped by block (2 rows x 3 columns)
         ArrayList<ArrayList<Pos>> blocks = new ArrayList<>();
         int[][] blockStarts = {{0, 0}, {0, 3}, {2, 0}, {2, 3}, {4, 0}, {4, 3}};
-        for (int b = 0; b < blockStarts.length; b++) {
+
+        int b = 0;
+        while (b < blockStarts.length) {
             ArrayList<Pos> block = new ArrayList<>();
-            for (int i = blockStarts[b][0]; i < blockStarts[b][0] + 2; i++) {
-                for (int j = blockStarts[b][1]; j < blockStarts[b][1] + 3; j++) {
+            int i = blockStarts[b][0];
+            while (i < blockStarts[b][0] + 2) {
+                int j = blockStarts[b][1];
+                while (j < blockStarts[b][1] + 3) {
                     block.add(new Pos(i, j));
+                    j++;
                 }
+                i++;
             }
             Collections.shuffle(block);
             blocks.add(block);
+            b++;
         }
 
         ArrayList<Pos> available = new ArrayList<>();
-        for (int b = 0; b < blocks.size(); b++) {
-            for (int k = 0; k < blocks.get(b).size(); k++) {
-                available.add(blocks.get(b).get(k));
+        int k = 0;
+        while (k < blocks.size()) {
+            int m = 0;
+            while (m < blocks.get(k).size()) {
+                available.add(blocks.get(k).get(m));
+                m++;
             }
+            k++;
         }
 
         int[] hintsPerBlock = {6, 6, 6, 6, 6, 6};
@@ -323,12 +359,32 @@ public class SodokuModel {
      * Prints the current game matrix to the console.
      */
     public void matrixView() {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
+        int i = 0;
+        while (i < 6) {
+            int j = 0;
+            while (j < 6) {
                 System.out.print(matrix.get(i).get(j) + " ");
+                j++;
             }
             System.out.println();
+            i++;
+        }
+    }
+    /**
+     * Removes a position from the removed list when correctly placed by the player.
+     *
+     * @param i row index
+     * @param j column index
+     */
+    public void removeFromRemoved(int i, int j) {
+        int idx = 0;
+        while (idx < removed.size()) {
+            Pos pos = removed.get(idx);
+            if (pos.i == i && pos.j == j) {
+                removed.remove(idx);
+                return;
+            }
+            idx++;
         }
     }
 }
-
