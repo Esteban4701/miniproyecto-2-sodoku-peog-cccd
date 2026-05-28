@@ -1,5 +1,6 @@
 package com.example.sudoku;
 
+import com.example.sudoku.controller.SudokuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +20,9 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/sudoku-game-view.fxml"));
         Parent root = fxmlLoader.load();
 
+        SudokuController controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
+        scene.setOnKeyPressed(controller::onKeyPressed);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Sudoku");
         primaryStage.show();
