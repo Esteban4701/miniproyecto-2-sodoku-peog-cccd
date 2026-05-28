@@ -4,8 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="500.0" prefWidth="400.0" spacing="20.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku.controller.WinController">
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="400.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku.controller.WinController">
 
     <padding>
         <Insets bottom="40" left="40" right="40" top="40" />
@@ -17,9 +18,12 @@
 
     <Label style="-fx-font-size: 14px; -fx-text-fill: #6c757d;" text="Well done, you completed the Sudoku!" />
 
-    <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #e9ecef; -fx-background-radius: 10; -fx-padding: 15 40 15 40;">
+    <VBox alignment="CENTER" prefHeight="100.0" prefWidth="334.0" spacing="5" style="-fx-background-color: #e9ecef; -fx-background-radius: 10; -fx-padding: 15 40 15 40;">
         <Label style="-fx-font-size: 12px; -fx-text-fill: #6c757d;" text="Your time" />
-        <Label fx:id="lblTime" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #3D4271;" text="00:00" />
+        <Label fx:id="lblTime" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #3D4271;" text="00:00">
+         <font>
+            <Font size="1.0" />
+         </font></Label>
     </VBox>
 
     <Button fx:id="btnPlayAgain" onAction="#onPlayAgain" style="-fx-background-color: #3D4271; -fx-text-fill: white; -fx-font-size: 15px; -fx-background-radius: 8; -fx-padding: 10 40 10 40;" text="Play Again" />
