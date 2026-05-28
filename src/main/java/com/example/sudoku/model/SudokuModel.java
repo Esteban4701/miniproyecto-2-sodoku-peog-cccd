@@ -327,7 +327,7 @@ public class SudokuModel {
         int gap = 0;
         int idx = 0;
 
-        while (gap < 20 && idx < available.size()) {
+        while (gap <= 23 && idx < available.size()) {
             Pos pos = available.get(idx);
             idx++;
 
