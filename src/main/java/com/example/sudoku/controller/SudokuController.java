@@ -270,18 +270,29 @@ public class SudokuController {
      * @param number number to select (1-6), or -1 for eraser
      */
     private void selectNumber(int number) {
-        // Toggle off if already selected
+        if (number >= 1 && number <= 6) {
+            int currentInCell = (selectedRow != -1 && selectedCol != -1) ? model.get(selectedRow, selectedCol) : -1;
+            if (numberCount[number] >= 6 && currentInCell != number) {
+                return;
+            }
+        }
+
         if (selectedNumber == number) {
             selectedNumber = 0;
-            highlightSelectedButton(0);
+            String base = "-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;";
+            if (number == -1) {
+                btnEraser.setStyle(base);
+            } else if (number >= 1 && number <= 6) {
+                Button[] btns = {btn1, btn2, btn3, btn4, btn5, btn6};
+                btns[number - 1].setStyle(base);
+            }
             highlightSameNumbers(0);
-            highlightSelectedButton(number);
             return;
         }
 
         selectedNumber = number;
-        highlightSameNumbers(number);
         highlightSelectedButton(number);
+        highlightSameNumbers(number);
 
         if (selectedRow != -1 && selectedCol != -1) {
             if (number == -1) {
@@ -318,7 +329,7 @@ public class SudokuController {
             btnEraser.setStyle(base + "-fx-background-color: #ffc107;");
         } else if (number >= 1 && number <= 6) {
             if (!btns[number - 1].isDisabled()) {
-                btns[number - 1].setStyle(base + "-fx-background-color: #0d6efd; -fx-text-fill: white;");
+                btns[number - 1].setStyle(base + "-fx-background-color: #3D4271; -fx-text-fill: white;");
             }
         }
     }
@@ -396,7 +407,7 @@ public class SudokuController {
                 if (cells[i][j].isDisabled()) {
                     // Fixed cell: highlight purple if matches, restore blue otherwise
                     if (val == number && number != 0) {
-                        cells[i][j].setStyle("-fx-background-color: #e8d5f5; -fx-font-weight: bold;");
+                        cells[i][j].setStyle("-fx-background-color: #6D72A8; -fx-font-weight: bold;");
                     } else {
                         cells[i][j].setStyle("-fx-background-color: #d0e8ff; -fx-font-weight: bold;");
                     }
@@ -405,7 +416,7 @@ public class SudokuController {
                     if (val != 0 && !model.isCorrect(i, j, val)) {
                         cells[i][j].setStyle("-fx-background-color: #f8d7da; -fx-border-color: red;");
                     } else if (val == number && number != 0) {
-                        cells[i][j].setStyle("-fx-background-color: #e8d5f5;");
+                        cells[i][j].setStyle("-fx-background-color: #6D72A8;");
                     } else {
                         cells[i][j].setStyle("-fx-background-color: white;");
                     }
