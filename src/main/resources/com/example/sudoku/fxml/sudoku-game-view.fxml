@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7D80A2;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku.controller.SudokuController">
+   <children>
+      <GridPane fx:id="gridPane" layoutX="172.0" layoutY="44.0" prefHeight="266.0" prefWidth="266.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <Label fx:id="lblTimer" alignment="CENTER" contentDisplay="CENTER" layoutX="178.0" layoutY="14.0" prefHeight="18.0" prefWidth="258.0" text="TIMER" textAlignment="CENTER" />
+      <Line endX="-92.0" endY="265.0" layoutX="354.0" layoutY="49.5" startX="-92.0" startY="-14.400005340576172" stroke="#c7c7c7" />
+      <Line endX="-92.0" endY="265.0" layoutX="400.0" layoutY="52.5" rotate="90.0" startX="-92.0" startY="-14.400005340576172" stroke="#c7c7c7" />
+      <Line endX="-92.0" endY="265.0" layoutX="400.0" layoutY="141.0" rotate="90.0" startX="-92.0" startY="-14.400005340576172" stroke="#c7c7c7" />
+      <Line endX="-92.0" endY="265.0" layoutX="400.0" layoutY="-37.0" rotate="90.0" startX="-92.0" startY="-14.400005340576172" stroke="#c7c7c7" />
+      <Line endX="-92.0" endY="265.0" layoutX="489.0" layoutY="52.0" startX="-92.0" startY="-14.400005340576172" stroke="#c7c7c7" />
+      <Line endX="-92.0" endY="265.0" layoutX="309.0" layoutY="52.0" startX="-92.0" startY="-14.400005340576172" stroke="#c7c7c7" />
+      <Line endX="-92.0" endY="265.0" layoutX="444.0" layoutY="52.0" startX="-92.0" startY="-14.400005340576172" stroke="#c7c7c7" />
+      <Line endX="-92.0" endY="265.0" layoutX="397.0" layoutY="8.0" rotate="90.0" startX="-92.0" startY="-14.400005340576172" />
+      <Line endX="15.0" endY="265.0" layoutX="292.0" layoutY="52.0" startX="15.0" startY="-14.400005340576172" />
+      <Button fx:id="btn1" layoutX="172.0" layoutY="327.0" maxHeight="54.0" mnemonicParsing="false" prefWidth="54.0" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="1" />
+      <Button fx:id="btn2" layoutX="218.0" layoutY="327.0" mnemonicParsing="false" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="2" />
+      <Button fx:id="btn3" layoutX="263.0" layoutY="327.0" mnemonicParsing="false" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="3" />
+      <Button fx:id="btn4" layoutX="308.0" layoutY="327.0" mnemonicParsing="false" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="4" />
+      <Button fx:id="btn5" layoutX="353.0" layoutY="327.0" mnemonicParsing="false" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="5" />
+      <Button fx:id="btn6" layoutX="398.0" layoutY="327.0" mnemonicParsing="false" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="6" />
+      <Label fx:id="lblAmount1" alignment="CENTER" contentDisplay="CENTER" layoutX="187.0" layoutY="367.0" prefHeight="10.0" prefWidth="10.0" text="0" textAlignment="CENTER" />
+      <Label fx:id="lblAmount2" alignment="CENTER" contentDisplay="CENTER" layoutX="233.0" layoutY="367.0" prefHeight="10.0" prefWidth="10.0" text="0" textAlignment="CENTER" />
+      <Label fx:id="lblAmount3" alignment="CENTER" contentDisplay="CENTER" layoutX="278.0" layoutY="367.0" prefHeight="10.0" prefWidth="10.0" text="0" textAlignment="CENTER" />
+      <Label fx:id="lblAmount4" alignment="CENTER" contentDisplay="CENTER" layoutX="324.0" layoutY="367.0" prefHeight="10.0" prefWidth="1.0" text="0" textAlignment="CENTER" />
+      <Label fx:id="lblAmount5" alignment="CENTER" contentDisplay="CENTER" layoutX="368.0" layoutY="367.0" prefHeight="10.0" prefWidth="10.0" text="0" textAlignment="CENTER" />
+      <Label fx:id="lblAmount6" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="367.0" prefHeight="10.0" prefWidth="10.0" text="0" textAlignment="CENTER" />
+       <Button fx:id="btnEraser" layoutX="496.0" layoutY="327.0" maxHeight="54.0" mnemonicParsing="false" prefWidth="54.0" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="">
+           <graphic>
+               <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                   <Image url="@../images/eraser.png"/>
+               </ImageView>
+           </graphic>
+       </Button>
+       <Button fx:id="btnHint" layoutX="546.0" layoutY="327.0" maxHeight="54.0" mnemonicParsing="false" prefWidth="54.0" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;">
+           <graphic>
+               <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                   <Image url="@../images/hint.png"/>
+               </ImageView>
+           </graphic>
+       </Button>
+       <Line endX="-92.0" endY="265.0" layoutX="396.0" layoutY="97.0" rotate="90.0" startX="-92.0" startY="-14.400005340576172" />
+   </children>
+</AnchorPane>
