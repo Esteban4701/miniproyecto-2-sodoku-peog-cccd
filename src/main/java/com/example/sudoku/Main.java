@@ -1,6 +1,7 @@
 package com.example.sudoku;
 
 import com.example.sudoku.controller.SudokuController;
+import com.example.sudoku.view.SceneNavigator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        SceneNavigator.setStage(primaryStage);
+        
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/sudoku-game-view.fxml"));
         Parent root = fxmlLoader.load();
 

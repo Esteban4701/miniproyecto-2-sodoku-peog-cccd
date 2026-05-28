@@ -1,6 +1,7 @@
 package com.example.sudoku.controller;
 
 import com.example.sudoku.model.SudokuModel;
+import com.example.sudoku.view.SceneNavigator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -385,8 +386,11 @@ public class SudokuController {
      */
     private void onPuzzleSolved() {
         timer.stop();
-        lblTimer.setText("✔ " + lblTimer.getText());
-        // TODO: show win dialog or navigate to results scene
+        try {
+            SceneNavigator.goToWin(lblTimer.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     /**
      * Highlights all cells on the board that contain the given number.
