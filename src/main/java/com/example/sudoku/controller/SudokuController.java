@@ -15,7 +15,7 @@ import javafx.util.Duration;
  * Controller for the Sudoku game view.
  * Handles user interaction between the view and the model.
  */
-public class SudokuController {
+public class SudokuController implements ISudokuController {
 
     @FXML private GridPane gridPane;
     @FXML private Label lblTimer;
@@ -105,12 +105,11 @@ public class SudokuController {
      * @param row row index of the clicked cell
      * @param col column index of the clicked cell
      */
-    private void onCellClicked(int row, int col) {
-        // Deselect previous cell if it had no value or was correct
+    @Override
+    public void onCellClicked(int row, int col) {
         if (selectedRow != -1 && selectedCol != -1) {
             restoreCellStyle(selectedRow, selectedCol);
         }
-
         selectedRow = row;
         selectedCol = col;
 
@@ -119,7 +118,6 @@ public class SudokuController {
         } else if (selectedNumber != 0) {
             placeNumber(row, col, selectedNumber);
         } else {
-            // No number selected yet, just highlight the cell
             cells[row][col].setStyle("-fx-background-color: #fff3cd;");
         }
     }
@@ -133,7 +131,8 @@ public class SudokuController {
      * @param col    column index
      * @param number number to place (1-6)
      */
-    private void placeNumber(int row, int col, int number) {
+    @Override
+    public void placeNumber(int row, int col, int number) {
         int previous = model.get(row, col);
         if (previous != 0) {
             numberCount[previous]--;
@@ -147,9 +146,7 @@ public class SudokuController {
         updateButtonState(number);
 
         if (model.isCorrect(row, col, number)) {
-            // Remove from removed list since it's correctly placed
             model.removeFromRemoved(row, col);
-
             cells[row][col].setStyle("-fx-background-color: #d4edda;");
             Timeline flash = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> {
                 cells[row][col].setStyle("-fx-background-color: white;");
@@ -189,7 +186,8 @@ public class SudokuController {
      * @param row row index
      * @param col column index
      */
-    private void eraseCell(int row, int col) {
+    @Override
+    public void eraseCell(int row, int col) {
         int current = model.get(row, col);
         if (current != 0) {
             numberCount[current]--;
@@ -238,25 +236,7 @@ public class SudokuController {
      */
     private void setupActionButtons() {
         btnEraser.setOnAction(e -> selectNumber(-1));
-
-        btnHint.setOnAction(e -> {
-            SudokuModel.Pos pos = model.giveHint();
-            if (pos != null) {
-                int val = model.get(pos.i, pos.j);
-                cells[pos.i][pos.j].setText(String.valueOf(val));
-                cells[pos.i][pos.j].setStyle("-fx-background-color: #fff3cd; -fx-border-color: orange;");
-                numberCount[val]++;
-                updateAmountLabels();
-                updateButtonState(val);
-                if (numberCount[val] >= 6 && selectedNumber == val) {
-                    selectedNumber = 0;
-                    highlightSelectedButton(0);
-                    highlightSameNumbers(0);
-                }
-
-            }
-        });
-
+        btnHint.setOnAction(e -> onHintRequested());
     }
 
     /**
@@ -267,7 +247,8 @@ public class SudokuController {
      *
      * @param number number to select (1-6), or -1 for eraser
      */
-    private void selectNumber(int number) {
+    @Override
+    public void selectNumber(int number) {
         if (number >= 1 && number <= 6) {
             int currentInCell = (selectedRow != -1 && selectedCol != -1) ? model.get(selectedRow, selectedCol) : -1;
             if (numberCount[number] >= 6 && currentInCell != number) {
@@ -310,7 +291,6 @@ public class SudokuController {
         String base = "-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;";
         Button[] btns = {btn1, btn2, btn3, btn4, btn5, btn6};
 
-        // Reset all number buttons
         int k = 0;
         while (k < 6) {
             if (!btns[k].isDisabled()) {
@@ -319,10 +299,8 @@ public class SudokuController {
             k++;
         }
 
-        // Always reset eraser first
         btnEraser.setStyle(base);
 
-        // Then highlight the selected one
         if (number == -1) {
             btnEraser.setStyle(base + "-fx-background-color: #ffc107;");
         } else if (number >= 1 && number <= 6) {
@@ -338,6 +316,7 @@ public class SudokuController {
      *
      * @param event the key event
      */
+    @Override
     @FXML
     public void onKeyPressed(KeyEvent event) {
         switch (event.getCode()) {
@@ -381,10 +360,33 @@ public class SudokuController {
     }
 
     /**
-     * Handles the puzzle solved event.
-     * Stops the timer and marks the completion.
+     * Handles the hint button action.
+     * Reveals a hint cell from the model.
      */
-    private void onPuzzleSolved() {
+    @Override
+    public void onHintRequested() {
+        SudokuModel.Pos pos = model.giveHint();
+        if (pos != null) {
+            int val = model.get(pos.i, pos.j);
+            cells[pos.i][pos.j].setText(String.valueOf(val));
+            cells[pos.i][pos.j].setStyle("-fx-background-color: #fff3cd; -fx-border-color: orange;");
+            numberCount[val]++;
+            updateAmountLabels();
+            updateButtonState(val);
+            if (numberCount[val] >= 6 && selectedNumber == val) {
+                selectedNumber = 0;
+                highlightSelectedButton(0);
+                highlightSameNumbers(0);
+            }
+        }
+    }
+
+    /**
+     * Handles the puzzle solved event.
+     * Stops the timer and navigates to the win screen.
+     */
+    @Override
+    public void onPuzzleSolved() {
         timer.stop();
         try {
             SceneNavigator.goToWin(lblTimer.getText());
@@ -392,6 +394,7 @@ public class SudokuController {
             e.printStackTrace();
         }
     }
+
     /**
      * Highlights all cells on the board that contain the given number.
      * Clears highlights first, then marks matching cells in light purple.
@@ -406,14 +409,12 @@ public class SudokuController {
             while (j < 6) {
                 int val = model.get(i, j);
                 if (cells[i][j].isDisabled()) {
-                    // Fixed cell: highlight purple if matches, restore blue otherwise
                     if (val == number && number != 0) {
                         cells[i][j].setStyle("-fx-background-color: #6D72A8; -fx-font-weight: bold;");
                     } else {
                         cells[i][j].setStyle("-fx-background-color: #d0e8ff; -fx-font-weight: bold;");
                     }
                 } else {
-                    // Editable cell
                     if (val != 0 && !model.isCorrect(i, j, val)) {
                         cells[i][j].setStyle("-fx-background-color: #f8d7da; -fx-border-color: red;");
                     } else if (val == number && number != 0) {
@@ -427,5 +428,4 @@ public class SudokuController {
             i++;
         }
     }
-
 }
