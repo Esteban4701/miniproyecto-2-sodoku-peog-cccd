@@ -5,7 +5,7 @@ import java.util.*;
  * Model class for a 6x6 Sudoku game.
  * Handles matrix generation, validation, hollowing logic, and hint system.
  */
-public class SudokuModel {
+public class SudokuModel implements ISudokuModel {
 
     /** The current game matrix (with holes). */
     private final ArrayList<ArrayList<Integer>> matrix;
