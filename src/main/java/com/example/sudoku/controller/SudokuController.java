@@ -19,7 +19,7 @@ public class SudokuController {
     @FXML private GridPane gridPane;
     @FXML private Label lblTimer;
     @FXML private Button btn1, btn2, btn3, btn4, btn5, btn6;
-    @FXML private Button btnEraser, btnHint, btnBack;
+    @FXML private Button btnEraser, btnHint;
     @FXML private Label lblAmount1, lblAmount2, lblAmount3, lblAmount4, lblAmount5, lblAmount6;
 
     /** The game model. */
@@ -256,9 +256,6 @@ public class SudokuController {
             }
         });
 
-        btnBack.setOnAction(e -> {
-            // TODO: navigate back to main menu scene
-        });
     }
 
     /**
