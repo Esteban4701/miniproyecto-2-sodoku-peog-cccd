@@ -10,16 +10,34 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Entry point of the Sudoku application.
+ * Initializes the JavaFX stage and loads the main game scene.
+ */
 public class Main extends Application {
 
+    /**
+     * Application entry point.
+     * Launches the JavaFX application.
+     *
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Starts the JavaFX application.
+     * Sets up the primary stage, loads the initial game scene,
+     * and connects the keyboard event handler.
+     *
+     * @param primaryStage the primary stage of the application
+     * @throws IOException if the FXML file cannot be loaded
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         SceneNavigator.setStage(primaryStage);
-        
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/sudoku-game-view.fxml"));
         Parent root = fxmlLoader.load();
 
