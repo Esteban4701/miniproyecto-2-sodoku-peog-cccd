@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Line?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7D80A2;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku.controller.SudokuController">
    <children>
       <GridPane fx:id="gridPane" layoutX="172.0" layoutY="44.0" prefHeight="266.0" prefWidth="266.0">
@@ -50,8 +52,20 @@
       <Label fx:id="lblAmount4" alignment="CENTER" contentDisplay="CENTER" layoutX="324.0" layoutY="367.0" prefHeight="10.0" prefWidth="1.0" text="0" textAlignment="CENTER" />
       <Label fx:id="lblAmount5" alignment="CENTER" contentDisplay="CENTER" layoutX="368.0" layoutY="367.0" prefHeight="10.0" prefWidth="10.0" text="0" textAlignment="CENTER" />
       <Label fx:id="lblAmount6" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="367.0" prefHeight="10.0" prefWidth="10.0" text="0" textAlignment="CENTER" />
-      <Button fx:id="btnEraser" layoutX="496.0" layoutY="327.0" maxHeight="54.0" mnemonicParsing="false" prefWidth="54.0" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="eraser" />
-      <Button fx:id="btnHint" layoutX="546.0" layoutY="327.0" maxHeight="54.0" mnemonicParsing="false" prefWidth="54.0" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="hint" />
-      <Line endX="-92.0" endY="265.0" layoutX="396.0" layoutY="97.0" rotate="90.0" startX="-92.0" startY="-14.400005340576172" />
+       <Button fx:id="btnEraser" layoutX="496.0" layoutY="327.0" maxHeight="54.0" mnemonicParsing="false" prefWidth="54.0" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;" text="">
+           <graphic>
+               <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                   <Image url="@../images/eraser.png"/>
+               </ImageView>
+           </graphic>
+       </Button>
+       <Button fx:id="btnHint" layoutX="546.0" layoutY="327.0" maxHeight="54.0" mnemonicParsing="false" prefWidth="54.0" style="-fx-background-radius: 50; -fx-min-height: 40; -fx-min-width: 40; -fx-max-width: 40; -fx-max-height: 40; -fx-border-radius: 50;">
+           <graphic>
+               <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                   <Image url="@../images/hint.png"/>
+               </ImageView>
+           </graphic>
+       </Button>
+       <Line endX="-92.0" endY="265.0" layoutX="396.0" layoutY="97.0" rotate="90.0" startX="-92.0" startY="-14.400005340576172" />
    </children>
 </AnchorPane>
