@@ -378,6 +378,9 @@ public class SudokuController implements ISudokuController {
                 highlightSelectedButton(0);
                 highlightSameNumbers(0);
             }
+            if (model.isSolved()) {
+                onPuzzleSolved();
+            }
         }
     }
 
